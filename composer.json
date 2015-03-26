@@ -1,17 +1,23 @@
 {
-    "name": "silverstripe/comment-notifications",
-    "description": "Provides email notifications for visitor comments",
-    "license": "BSD-3-Clause",
-    "authors": [
-        {
-            "name": "Damian Mooyman",
-            "email": "damian@silverstripe.com"
-        }
-    ],
-    "require": {
+	"name": "silverstripe/comment-notifications",
+	"description": "Provides email notifications for visitor comments",
+	"type": "silverstripe-module",
+	"license": "BSD-3-Clause",
+	"authors": [
+		{
+			"name": "Damian Mooyman",
+			"email": "damian@silverstripe.com"
+		}
+	],
+	"require": {
 		"silverstripe/comments": "~1.2"
 	},
 	"require-dev": {
 		"phpunit/PHPUnit": "~3.7@stable"
+	},
+	"extra": {
+		"branch-alias": {
+			"dev-master": "1.0.x-dev"
+		}
 	}
 }
