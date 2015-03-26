@@ -1,0 +1,14 @@
+---
+Name: comment-notifications-pages
+Only:
+  classexists: SiteTree
+---
+SiteTree:
+  extensions:
+    - CommentNotifiable
+---
+Name: comment-notifications
+---
+CommentingController:
+  extensions:
+    - CommentNotifier

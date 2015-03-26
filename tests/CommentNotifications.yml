@@ -1,0 +1,44 @@
+Member:
+  author:
+    Email: andrew@address.com
+    FirstName: Andrew
+    Surname: Andrestein
+  commenter1:
+    Email: bob@address.com
+    FirstName: Bob
+    Surname: Bobberson
+  commenter2:
+    Email: james@place.com
+    FirstName: jessie
+    Surname: and
+
+CommentNotifiableTest_DataObject:
+  item1:
+    Title: 'An Object'
+    AuthorID: =>Member.author
+    URLSegment: 'item1'
+  item2:
+    Title: 'Another One'
+    URLSegment: 'item2'
+    
+Comment:
+  comment1:
+    AuthorID: =>Member.commenter1
+    Name: Bob Bobberson
+    Email: bob@address.com
+    Comment: 'Hey what a lovely comment'
+    ParentID: =>CommentNotifiableTest_DataObject.item1
+    BaseClass: CommentNotifiableTest_DataObject
+  comment2:
+    AuthorID: =>Member.commenter2
+    Name: Secret
+    Email: secret@notallowed.com
+    Comment: 'I don''t want to disclose my details'
+    ParentID: =>CommentNotifiableTest_DataObject.item2
+    BaseClass: CommentNotifiableTest_DataObject
+  comment3:
+    Name: Anonymous
+    Email: notlogged@in.com
+    Comment: 'I didn''t log in'
+    ParentID: =>CommentNotifiableTest_DataObject.item1
+    BaseClass: CommentNotifiableTest_DataObject
