@@ -72,8 +72,16 @@ class CommentNotifier extends Extension {
 		$email->populateTemplate(array(
 			'Parent' => $parent,
 			'Comment' => $comment,
-			'Recipient' => $recipient,
+			'Recipient' => $recipient
 		));
+		if($recipient instanceof Member) {
+			$email->populateTemplate(array(
+				'ApproveLink' => $comment->ApproveLink($recipient),
+				'HamLink' => $comment->HamLink($recipient),
+				'SpamLink' => $comment->SpamLink($recipient),
+				'DeleteLink' => $comment->DeleteLink($recipient),
+			));
+		}
 
 		// Until invokeWithExtensions supports multiple arguments
 		if(method_exists($this->owner, 'updateCommentNotification')) {
