@@ -17,11 +17,9 @@ class CommentNotifierTest extends SapphireTest {
 		Config::inst()->update('Email', 'admin_email', 'myadmin@mysite.com');
 		$this->oldhost = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : null;
 		$_SERVER['HTTP_HOST'] = 'www.mysite.com';
-		Commenting::add('CommentNotifiableTest_DataObject');
 	}
 
 	public function tearDown() {
-		Commenting::remove('CommentNotifiableTest_DataObject');
 		$_SERVER['HTTP_HOST'] = $this->oldhost;
 		Config::unnest();
 		Email::set_mailer(new Mailer());

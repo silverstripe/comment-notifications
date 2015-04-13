@@ -70,6 +70,7 @@ class CommentNotifiableTest_DataObject extends DataObject implements TestOnly {
 
 	private static $extensions = array(
 		'CommentNotifiable',
+		'CommentsExtension',
 	);
 
 	public function notificationRecipients($comment) {
