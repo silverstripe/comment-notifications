@@ -43,9 +43,9 @@ class CommentNotifiable extends DataExtension {
 			$list[] = $adminEmail;
 		}
 		if ($this->owner->hasMethod('updateNotificationRecipients')) {
-		    $list = $this->owner->updateNotificationRecipients(&$list, $comment);
+		    $list = $this->owner->updateNotificationRecipients($list, $comment);
 	    } else {
-		    $this->owner->extend('updateNotificationRecipients', &$list, $comment);
+		    $this->owner->extend('updateNotificationRecipients', $list, $comment);
 	    }	
 	    return $list;
 	}
