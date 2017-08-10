@@ -31,22 +31,25 @@ class CommentNotifiable extends DataExtension
      */
     private static $default_notification_template = 'CommentEmail';
 
-    /**
-     * Return the list of members or emails to send comment notifications to
-     *
-     * @param Comment $comment
-     * @return array|Traversable
-     */
-    public function notificationRecipients($comment)
-    {
-        // Override this in your extending class to declare recipients
-        $list = array();
-        if ($adminEmail = Email::config()->admin_email) {
-            $list[] = $adminEmail;
-        }
-        $this->owner->extend('updateNotificationRecipients', $list, $comment);
-        return $list;
-    }
+	/**
+	 * Return the list of members or emails to send comment notifications to
+	 *
+	 * @param Comment $comment
+	 * @return array|Traversable
+	 */
+	public function notificationRecipients($comment) {
+		// Override this in your extending class to declare recipients
+		$list = array();
+		if($adminEmail = Email::config()->admin_email) {
+			$list[] = $adminEmail;
+		}
+		if ($this->owner->hasMethod('updateNotificationRecipients')) {
+		    $list = $this->owner->updateNotificationRecipients($list, $comment);
+	    } else {
+		    $this->owner->extend('updateNotificationRecipients', $list, $comment);
+	    }	
+	    return $list;
+	}
 
     /**
      * Gets the email subject line for comment notifications
