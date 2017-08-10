@@ -1,6 +1,6 @@
 # Comment Notifications
 
-[![Build Status](https://secure.travis-ci.org/silverstripe-labs/comment-notifications.png?branch=master)](http://travis-ci.org/silverstripe-labs/comment-notifications)
+[![Build Status](https://secure.travis-ci.org/silverstripe/comment-notifications.png?branch=master)](http://travis-ci.org/silverstripe/comment-notifications)
 
 Provides simple comment notifications
 
