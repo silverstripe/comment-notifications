@@ -40,14 +40,13 @@ class CommentNotifiable extends DataExtension
      */
     public function notificationRecipients($comment)
     {
-        // Override this in your extending class to declare recipients
-        $list = array();
+        $list = [];
 
         if ($adminEmail = Email::config()->admin_email) {
             $list[] = $adminEmail;
         }
 
-        $this->owner->extend('updateNotificationRecipients', $list, $comment);
+        $this->owner->invokeWithExtensions('updateNotificationRecipients', $list, $comment);
 
         return $list;
     }
@@ -62,7 +61,9 @@ class CommentNotifiable extends DataExtension
     public function notificationSubject($comment, $recipient)
     {
         $subject = $this->owner->config()->default_notification_subject;
-        $this->owner->extend('updateNotificationSubject', $subject, $comment, $recipient);
+
+        $this->owner->invokeWithExtensions('updateNotificationSubject', $subject, $comment, $recipient);
+
         return $subject;
     }
 
@@ -83,7 +84,8 @@ class CommentNotifiable extends DataExtension
             : 'localhost';
         $sender = preg_replace('/{host}/', $host, $sender);
 
-        $this->owner->extend('updateNotificationSender', $sender, $comment, $recipient);
+        $this->owner->invokeWithExtensions('updateNotificationSender', $sender, $comment, $recipient);
+
         return $sender;
     }
 
@@ -97,7 +99,9 @@ class CommentNotifiable extends DataExtension
     public function notificationTemplate($comment, $recipient)
     {
         $template = $this->owner->config()->default_notification_template;
-        $this->owner->extend('updateNotificationTemplate', $template, $comment, $recipient);
+
+        $this->owner->invokeWithExtensions('updateNotificationTemplate', $template, $comment, $recipient);
+
         return $template;
     }
 
@@ -110,5 +114,6 @@ class CommentNotifiable extends DataExtension
      */
     public function updateCommentNotification($email, $comment, $recipient)
     {
+        //
     }
 }

@@ -43,7 +43,7 @@ class CommentNotifiableTest extends SapphireTest
         $item1 = $this->objFromFixture(CommentNotifiableTestDataObject::class, 'item1');
         $item2 = $this->objFromFixture(CommentNotifiableTestDataObject::class, 'item2');
 
-        $this->assertEquals(array('andrew@address.com'), $item1->notificationRecipients($comment1));
+        $this->assertEquals(array('myadmin@mysite.com', 'andrew@address.com'), $item1->notificationRecipients($comment1));
         $this->assertEquals(array('myadmin@mysite.com'), $item2->notificationRecipients($comment2));
     }
 

@@ -27,15 +27,13 @@ class CommentNotifiableTestDataObject extends DataObject implements TestOnly
 
     private static $table_name = 'CommentNotifiableTestDataObject';
 
-    public function notificationRecipients($comment)
+    public function updateNotificationRecipients(&$list, $comment)
     {
         $author = $this->Author();
 
         if ($author && $author->exists()) {
-            return [$author->Email];
+            $list[] = $author->Email;
         }
-
-        return parent::notificationRecipients($comment);
     }
 
     public function Link($action = false)

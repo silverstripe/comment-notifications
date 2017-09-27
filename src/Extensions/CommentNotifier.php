@@ -86,12 +86,7 @@ class CommentNotifier extends Extension
             ]);
         }
 
-        // Until invokeWithExtensions supports multiple arguments
-        if ($this->owner->hasMethod('updateCommentNotification')) {
-            $this->owner->updateCommentNotification($email, $comment, $recipient);
-        }
-
-        $this->owner->extend('updateCommentNotification', $email, $comment, $recipient);
+        $this->owner->invokeWithExtensions('updateCommentNotification', $email, $comment, $recipient);
 
         return $email->send();
     }
