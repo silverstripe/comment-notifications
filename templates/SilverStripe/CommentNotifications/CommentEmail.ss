@@ -19,7 +19,7 @@
 	<% end_if %>
 </ul>
 
-<blockquote>{$Comment.Comment}</blockquote>
+<blockquote><% with Comment %>$Comment<% end_with %></blockquote>
 
 <% if $ApproveLink || $HamLink || $SpamLink || $DeleteLink %>
 	<ul>

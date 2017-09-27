@@ -1,9 +1,16 @@
 <?php
 
+namespace SilverStripe\CommentNotifications\Extensions;
+
+use SilverStripe\Comments\Model\Comment;
+use SilverStripe\Security\Member;
+use SilverStripe\Control\Email\Email;
+use SilverStripe\Core\Extension;
+
 /**
  * Extension applied to CommentingController to invoke notifications
  *
- * Relies on the parent object to {@see Comment} having the {@see CommentNotifiable} extension applied
+ * Relies on the parent object to {@see Comment} having the {@see CommentNotifiable} extension applied..
  */
 class CommentNotifier extends Extension
 {
@@ -15,40 +22,18 @@ class CommentNotifier extends Extension
      */
     public function onAfterPostComment(Comment $comment)
     {
-        $parent = $comment->getParent();
+        $parent = $comment->Parent();
+
         if (!$parent) {
             return;
         }
-        
+
         // Ask parent to submit all recipients
         $recipients = $parent->notificationRecipients($comment);
+
         foreach ($recipients as $recipient) {
             $this->notifyCommentRecipient($comment, $parent, $recipient);
         }
-    }
-
-    /**
-     * Validates for RFC 2822 compliant email adresses.
-     *
-     * @see http://www.regular-expressions.info/email.html
-     * @see http://www.ietf.org/rfc/rfc2822.txt
-     *
-     * @param string $email
-     * @return boolean
-     */
-    public function isValidEmail($email)
-    {
-        if (!$email) {
-            return false;
-        }
-
-        $pcrePattern = '^[a-z0-9!#$%&\'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&\'*+/=?^_`{|}~-]+)*'
-            . '@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$';
-
-        // PHP uses forward slash (/) to delimit start/end of pattern, so it must be escaped
-        $pregSafePattern = str_replace('/', '\\/', $pcrePattern);
-
-        return preg_match('/' . $pregSafePattern . '/i', $email);
     }
 
     /**
@@ -66,39 +51,48 @@ class CommentNotifier extends Extension
 
         // Validate email
         // Important in case of the owner being a default-admin or a username with no contact email
-        $to = $recipient instanceof Member
-            ? $recipient->Email
-            : $recipient;
-        if (!$this->isValidEmail($to)) {
+        $to = ($recipient instanceof Member) ? $recipient->Email : $recipient;
+
+        if (!Email::is_valid_address($to)) {
             return;
         }
 
         // Prepare the email
-        $email = new Email();
+        $email = Email::create();
         $email->setSubject($subject);
         $email->setFrom($sender);
         $email->setTo($to);
-        $email->setTemplate($template);
-        $email->populateTemplate(array(
-            'Parent' => $parent,
-            'Comment' => $comment,
-            'Recipient' => $recipient
-        ));
+        $email->setHTMLTemplate($template);
+
         if ($recipient instanceof Member) {
-            $email->populateTemplate(array(
+            $email->setData([
+                'Parent' => $parent,
+                'Comment' => $comment,
+                'Recipient' => $recipient,
                 'ApproveLink' => $comment->ApproveLink($recipient),
                 'HamLink' => $comment->HamLink($recipient),
                 'SpamLink' => $comment->SpamLink($recipient),
                 'DeleteLink' => $comment->DeleteLink($recipient),
-            ));
+            ]);
+        } else {
+            $email->setData([
+                'Parent' => $parent,
+                'Comment' => $comment,
+                'ApproveLink' => false,
+                'SpamLink' => false,
+                'DeleteLink' => false,
+                'HamLink' => false,
+                'Recipient' => $recipient
+            ]);
         }
 
         // Until invokeWithExtensions supports multiple arguments
-        if (method_exists($this->owner, 'updateCommentNotification')) {
+        if ($this->owner->hasMethod('updateCommentNotification')) {
             $this->owner->updateCommentNotification($email, $comment, $recipient);
         }
+
         $this->owner->extend('updateCommentNotification', $email, $comment, $recipient);
-        
+
         return $email->send();
     }
 }

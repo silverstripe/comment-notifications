@@ -1,21 +1,33 @@
 <?php
 
+namespace SilverStripe\CommentNotifications\Tests;
+
+use SilverStripe\Dev\SapphireTest;
+use SilverStripe\Control\Email\Email;
+use SilverStripe\Core\Config\Config;
+use SilverStripe\Security\Member;
+use SilverStripe\Comments\Model\Comment;
+use SilverStripe\CommentNotifications\Tests\Control\CommentNotifierTestController;
+use SilverStripe\CommentNotifications\Tests\Model\CommentNotifiableTestDataObject;
+
 class CommentNotifierTest extends SapphireTest
 {
-
     protected static $fixture_file = 'CommentNotifications.yml';
 
     protected $oldhost = null;
 
-    protected $extraDataObjects = array(
-        'CommentNotifiableTest_DataObject'
-    );
-    
+    protected static $extra_dataobjects = [
+        CommentNotifiableTestDataObject::class
+    ];
+
+    protected static $extra_controllers = [
+        CommentNotifierTestController::class
+    ];
+
     public function setUp()
     {
         parent::setUp();
-        Email::set_mailer(new EmailTest_Mailer());
-        Config::nest();
+
         Config::inst()->update('Email', 'admin_email', 'myadmin@mysite.com');
         $this->oldhost = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : null;
         $_SERVER['HTTP_HOST'] = 'www.mysite.com';
@@ -24,69 +36,67 @@ class CommentNotifierTest extends SapphireTest
     public function tearDown()
     {
         $_SERVER['HTTP_HOST'] = $this->oldhost;
-        Config::unnest();
-        Email::set_mailer(new Mailer());
+
         parent::tearDown();
     }
 
     public function testSendEmail()
     {
-        $author = $this->objFromFixture('Member', 'author');
-        $item1 = $this->objFromFixture('CommentNotifiableTest_DataObject', 'item1');
-        $item2 = $this->objFromFixture('CommentNotifiableTest_DataObject', 'item2');
-        $comment1 = $this->objFromFixture('Comment', 'comment1');
-        $comment2 = $this->objFromFixture('Comment', 'comment2');
-        $comment3 = $this->objFromFixture('Comment', 'comment3');
-        $controller = new CommentNotifierTest_Controller();
+        $author = $this->objFromFixture(Member::class, 'author');
+        $item1 = $this->objFromFixture(CommentNotifiableTestDataObject::class, 'item1');
+        $item2 = $this->objFromFixture(CommentNotifiableTestDataObject::class, 'item2');
+        $comment1 = $this->objFromFixture(Comment::class, 'comment1');
+        $comment2 = $this->objFromFixture(Comment::class, 'comment2');
+        $comment3 = $this->objFromFixture(Comment::class, 'comment3');
+        $controller = new CommentNotifierTestController();
 
-
-        // Commen 1
+        // Comment 1
         $result = $controller->notifyCommentRecipient($comment1, $item1, $author);
-        $this->assertEquals('andrew@address.com', $result['to']);
-        $this->assertEquals('noreply@mysite.com', $result['from']);
-        $this->assertEquals('A new comment has been posted', $result['subject']);
-        $this->assertContains('<li>Bob Bobberson</li>', $result['content']);
-        $this->assertContains('<li>bob@address.com</li>', $result['content']);
-        $this->assertContains('<blockquote>Hey what a lovely comment</blockquote>', $result['content']);
+
+        $this->assertEmailSent('andrew@address.com', 'noreply@mysite.com', 'A new comment has been posted');
+
+        $email = $this->findEmail('andrew@address.com', 'noreply@mysite.com', 'A new comment has been posted');
+
+        $this->assertContains('<li>Bob Bobberson</li>', $email['Content']);
+        $this->assertContains('<li>bob@address.com</li>', $email['Content']);
+        $this->assertContains('<blockquote>Hey what a lovely comment</blockquote>', $email['Content']);
         $this->assertContains(
             'You can view or moderate this comment at <a href="http://www.mysite.com/item1#comment-' .
                 $comment1->ID . '">An Object</a>',
-            $result['content']
+            $email['Content']
         );
+
+        $this->clearEmails();
 
         // Comment 2
         $result = $controller->notifyCommentRecipient($comment2, $item2, $author);
-        $this->assertEquals('andrew@address.com', $result['to']);
-        $this->assertEquals('noreply@mysite.com', $result['from']);
-        $this->assertEquals('A new comment has been posted', $result['subject']);
-        $this->assertContains('<li>Secret</li>', $result['content']);
-        $this->assertContains('<li>secret@notallowed.com</li>', $result['content']);
-        $this->assertContains('<blockquote>I don&#039;t want to disclose my details</blockquote>', $result['content']);
+        $this->assertEmailSent('andrew@address.com', 'noreply@mysite.com', 'A new comment has been posted');
+
+        $email = $this->findEmail('andrew@address.com', 'noreply@mysite.com', 'A new comment has been posted');
+        $this->assertContains('<li>Secret</li>', $email['Content']);
+        $this->assertContains('<li>secret@notallowed.com</li>', $email['Content']);
+        $this->assertContains('<blockquote>I don&#039;t want to disclose my details</blockquote>', $email['Content']);
         $this->assertContains(
             'You can view or moderate this comment at <a href="http://www.mysite.com/item2#comment-' .
                 $comment2->ID . '">Another One</a>',
-            $result['content']
+            $email['Content']
         );
+
+        $this->clearEmails();
 
         // Comment 3
         $result = $controller->notifyCommentRecipient($comment3, $item1, $author);
-        $this->assertEquals('andrew@address.com', $result['to']);
-        $this->assertEquals('noreply@mysite.com', $result['from']);
-        $this->assertEquals('A new comment has been posted', $result['subject']);
-        $this->assertContains('<li>Anonymous</li>', $result['content']);
-        $this->assertContains('<li>notlogged@in.com</li>', $result['content']);
-        $this->assertContains('<blockquote>I didn&#039;t log in</blockquote>', $result['content']);
+        $this->assertEmailSent('andrew@address.com', 'noreply@mysite.com', 'A new comment has been posted');
+
+        $email = $this->findEmail('andrew@address.com', 'noreply@mysite.com', 'A new comment has been posted');
+
+        $this->assertContains('<li>Anonymous</li>', $email['Content']);
+        $this->assertContains('<li>notlogged@in.com</li>', $email['Content']);
+        $this->assertContains('<blockquote>I didn&#039;t log in</blockquote>', $email['Content']);
         $this->assertContains(
             'You can view or moderate this comment at <a href="http://www.mysite.com/item1#comment-' .
                 $comment3->ID . '">An Object</a>',
-            $result['content']
+            $email['Content']
         );
     }
-}
-
-class CommentNotifierTest_Controller extends Controller implements TestOnly
-{
-    private static $extensions = array(
-        'CommentNotifier'
-    );
 }

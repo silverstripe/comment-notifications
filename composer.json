@@ -3,21 +3,29 @@
 	"description": "Provides email notifications for visitor comments",
 	"type": "silverstripe-module",
 	"license": "BSD-3-Clause",
-	"authors": [
-		{
-			"name": "Damian Mooyman",
-			"email": "damian@silverstripe.com"
-		}
-	],
+	"authors": [{
+		"name": "Damian Mooyman",
+		"email": "damian@silverstripe.com"
+	}],
 	"require": {
-		"silverstripe/comments": "^2.0"
+		"silverstripe/comments": "^3.0"
 	},
 	"require-dev": {
-		"phpunit/PHPUnit": "~3.7@stable"
-	},
+        "phpunit/PHPUnit": "^5.7"
+    },
+    "scripts": {
+        "lint": "phpcs src/ tests/",
+        "fix": "php-cs-fixer fix src/ && php-cs-fixer fix tests/"
+    },
+    "autoload": {
+        "psr-4": {
+            "SilverStripe\\CommentNotifications\\": "src/",
+            "SilverStripe\\CommentNotifications\\Tests\\": "tests/php/"
+        }
+    },
 	"extra": {
 		"branch-alias": {
-			"dev-master": "1.0.x-dev"
+			"dev-master": "2.0.x-dev"
 		}
 	}
 }
