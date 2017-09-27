@@ -19,7 +19,7 @@ class CommentNotifiableTest extends SapphireTest
         CommentNotifiableTestDataObject::class
     ];
 
-    public function setUp()
+    protected function setUp()
     {
         parent::setUp();
 
@@ -29,7 +29,7 @@ class CommentNotifiableTest extends SapphireTest
         $_SERVER['HTTP_HOST'] = 'www.mysite.com';
     }
 
-    public function tearDown()
+    protected function tearDown()
     {
         $_SERVER['HTTP_HOST'] = $this->oldhost;
 
