@@ -6,19 +6,6 @@
 [![Build Status](https://scrutinizer-ci.com/g/silverstripe/comment-notifications/badges/build.png?b=master)](https://scrutinizer-ci.com/g/silverstripe/comment-notifications/build-status/master)
 [![codecov.io](https://codecov.io/github/silverstripe/comment-notifications/coverage.svg?branch=master)](https://codecov.io/github/silverstripe/comment-notifications?branch=master)
 
-[![Latest Stable Version](https://poser.pugx.org/silverstripe/comment-notifications/version)](https://packagist.org/packages/silverstripe/comment-notifications)
-[![Latest Unstable Version](https://poser.pugx.org/silverstripe/comment-notifications/v/unstable)](//packagist.org/packages/silverstripe/comment-notifications)
-[![Total Downloads](https://poser.pugx.org/silverstripe/comment-notifications/downloads)](https://packagist.org/packages/silverstripe/comment-notifications)
-[![License](https://poser.pugx.org/silverstripe/comment-notifications/license)](https://packagist.org/packages/silverstripe/comment-notifications)
-[![Monthly Downloads](https://poser.pugx.org/silverstripe/comment-notifications/d/monthly)](https://packagist.org/packages/silverstripe/comment-notifications)
-[![Daily Downloads](https://poser.pugx.org/silverstripe/comment-notifications/d/daily)](https://packagist.org/packages/silverstripe/comment-notifications)
-
-[![Dependency Status](https://www.versioneye.com/php/silverstripe:comment-notifications/badge.svg)](https://www.versioneye.com/php/silverstripe:comment-notifications)
-[![Reference Status](https://www.versioneye.com/php/silverstripe:comment-notifications/reference_badge.svg?style=flat)](https://www.versioneye.com/php/silverstripe:comment-notifications/references)
-
-![codecov.io](https://codecov.io/github/silverstripe/comment-notifications/branch.svg?branch=master)
-
-
 Provides simple comment notifications.
 
 ## Installation

@@ -14,10 +14,6 @@
         "phpunit/PHPUnit": "^5.7",
         "squizlabs/php_codesniffer": "^3.0"
     },
-    "scripts": {
-        "lint": "phpcs src/ tests/",
-        "fix": "php-cs-fixer fix src/ && php-cs-fixer fix tests/"
-    },
     "autoload": {
         "psr-4": {
             "SilverStripe\\CommentNotifications\\": "src/",
