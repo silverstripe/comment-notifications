@@ -1,0 +1,10 @@
+en:
+  SilverStripe\CommentNotifications\CommentEmail:
+    APPRPOVE: 'Approve:'
+    DELETE: 'Delete:'
+    DETECTED_AS_SPAM: 'This comment was automatically detected as spam'
+    MARK_AS_NOT_SPAM: 'Mark as not spam:'
+    MARK_AS_SPAM: 'Mark as spam:'
+    MODERATE_THIS_COMMENT: 'You can view or moderate this comment at'
+    NEW_COMMENT_TEXT: 'There is a new comment on'
+    PLEASE_REVIEW_FOR_APPROVAL: 'Please review the comment for approval'

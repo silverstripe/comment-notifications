@@ -1,4 +1,4 @@
-Member:
+SilverStripe\Security\Member:
   author:
     Email: andrew@address.com
     FirstName: Andrew
@@ -12,33 +12,33 @@ Member:
     FirstName: jessie
     Surname: and
 
-CommentNotifiableTest_DataObject:
+SilverStripe\CommentNotifications\Tests\Model\CommentNotifiableTestDataObject:
   item1:
     Title: 'An Object'
-    AuthorID: =>Member.author
+    AuthorID: '=>SilverStripe\Security\Member.author'
     URLSegment: 'item1'
   item2:
     Title: 'Another One'
     URLSegment: 'item2'
-    
-Comment:
+
+SilverStripe\Comments\Model\Comment:
   comment1:
-    AuthorID: =>Member.commenter1
+    AuthorID: '=>SilverStripe\Security\Member.commenter1'
     Name: Bob Bobberson
     Email: bob@address.com
     Comment: 'Hey what a lovely comment'
-    ParentID: =>CommentNotifiableTest_DataObject.item1
-    BaseClass: CommentNotifiableTest_DataObject
+    ParentID: '=>SilverStripe\CommentNotifications\Tests\Model\CommentNotifiableTestDataObject.item1'
+    BaseClass: 'SilverStripe\CommentNotifications\Tests\Model\CommentNotifiableTestDataObject'
   comment2:
-    AuthorID: =>Member.commenter2
+    AuthorID: '=>SilverStripe\Security\Member.commenter2'
     Name: Secret
     Email: secret@notallowed.com
     Comment: 'I don''t want to disclose my details'
-    ParentID: =>CommentNotifiableTest_DataObject.item2
-    BaseClass: CommentNotifiableTest_DataObject
+    ParentID: '=>SilverStripe\CommentNotifications\Tests\Model\CommentNotifiableTestDataObject.item2'
+    BaseClass: 'SilverStripe\CommentNotifications\Tests\Model\CommentNotifiableTestDataObject'
   comment3:
     Name: Anonymous
     Email: notlogged@in.com
     Comment: 'I didn''t log in'
-    ParentID: =>CommentNotifiableTest_DataObject.item1
-    BaseClass: CommentNotifiableTest_DataObject
+    ParentID: '=>SilverStripe\CommentNotifications\Tests\Model\CommentNotifiableTestDataObject.item1'
+    BaseClass: 'SilverStripe\CommentNotifications\Tests\Model\CommentNotifiableTestDataObject'
