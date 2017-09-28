@@ -2,8 +2,6 @@
 
 [![Build Status](https://travis-ci.org/silverstripe/comment-notifications.svg?branch=master)](https://travis-ci.org/silverstripe/comment-notifications)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/silverstripe/comment-notifications/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/silverstripe/comment-notifications/?branch=master)
-[![Code Coverage](https://scrutinizer-ci.com/g/silverstripe/comment-notifications/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/silverstripe/comment-notifications/?branch=master)
-[![Build Status](https://scrutinizer-ci.com/g/silverstripe/comment-notifications/badges/build.png?b=master)](https://scrutinizer-ci.com/g/silverstripe/comment-notifications/build-status/master)
 [![codecov.io](https://codecov.io/github/silverstripe/comment-notifications/coverage.svg?branch=master)](https://codecov.io/github/silverstripe/comment-notifications?branch=master)
 
 Provides simple comment notifications.
