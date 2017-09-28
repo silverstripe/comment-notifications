@@ -60,11 +60,6 @@ class CommentNotifierTest extends SapphireTest
         $this->assertContains('<li>Bob Bobberson</li>', $email['Content']);
         $this->assertContains('<li>bob@address.com</li>', $email['Content']);
         $this->assertContains('<blockquote>Hey what a lovely comment</blockquote>', $email['Content']);
-        $this->assertContains(
-            'You can view or moderate this comment at <a href="http://www.mysite.com/item1#comment-' .
-                $comment1->ID . '">An Object</a>',
-            $email['Content']
-        );
 
         $this->clearEmails();
 
@@ -76,11 +71,6 @@ class CommentNotifierTest extends SapphireTest
         $this->assertContains('<li>Secret</li>', $email['Content']);
         $this->assertContains('<li>secret@notallowed.com</li>', $email['Content']);
         $this->assertContains('<blockquote>I don&#039;t want to disclose my details</blockquote>', $email['Content']);
-        $this->assertContains(
-            'You can view or moderate this comment at <a href="http://www.mysite.com/item2#comment-' .
-                $comment2->ID . '">Another One</a>',
-            $email['Content']
-        );
 
         $this->clearEmails();
 
@@ -93,10 +83,5 @@ class CommentNotifierTest extends SapphireTest
         $this->assertContains('<li>Anonymous</li>', $email['Content']);
         $this->assertContains('<li>notlogged@in.com</li>', $email['Content']);
         $this->assertContains('<blockquote>I didn&#039;t log in</blockquote>', $email['Content']);
-        $this->assertContains(
-            'You can view or moderate this comment at <a href="http://www.mysite.com/item1#comment-' .
-                $comment3->ID . '">An Object</a>',
-            $email['Content']
-        );
     }
 }
