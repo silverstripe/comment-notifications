@@ -28,7 +28,7 @@ class CommentNotifierTest extends SapphireTest
     {
         parent::setUp();
 
-        Config::inst()->update('Email', 'admin_email', 'myadmin@mysite.com');
+        Config::modify()->set('Email', 'admin_email', 'myadmin@mysite.com');
         $this->oldhost = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : null;
         $_SERVER['HTTP_HOST'] = 'www.mysite.com';
     }
@@ -52,7 +52,6 @@ class CommentNotifierTest extends SapphireTest
 
         // Comment 1
         $result = $controller->notifyCommentRecipient($comment1, $item1, $author);
-
         $this->assertEmailSent('andrew@address.com', 'noreply@mysite.com', 'A new comment has been posted');
 
         $email = $this->findEmail('andrew@address.com', 'noreply@mysite.com', 'A new comment has been posted');
@@ -83,5 +82,32 @@ class CommentNotifierTest extends SapphireTest
         $this->assertContains('<li>Anonymous</li>', $email['Content']);
         $this->assertContains('<li>notlogged@in.com</li>', $email['Content']);
         $this->assertContains('<blockquote>I didn&#039;t log in</blockquote>', $email['Content']);
+
+        $this->clearEmails();
+
+        // Comment 3 without an author
+        $result = $controller->notifyCommentRecipient($comment3, $item1, 'foobar@silverstripe.org');
+        $this->assertEmailSent('foobar@silverstripe.org', 'noreply@mysite.com', 'A new comment has been posted');
+
+        $this->clearEmails();
+
+        // Comment 3 without a valid email
+        $result = $controller->notifyCommentRecipient($comment3, $item1, '<foobar1>');
+        $noEmail = (bool) $this->findEmail('<foobar1>', 'noreply@mysite.com', 'A new comment has been posted');
+
+        $this->assertFalse($noEmail);
+    }
+
+    public function testOnAfterPostComment()
+    {
+        $this->clearEmails();
+
+        $comment1 = $this->objFromFixture(Comment::class, 'comment1');
+
+        $controller = new CommentNotifierTestController();
+        $controller->invokeWithExtensions('onAfterPostComment', $comment1);
+
+        // test that after posting a comment the notifications are sent.
+        $this->assertEmailSent('andrew@address.com', 'noreply@mysite.com', 'A new comment has been posted');
     }
 }
