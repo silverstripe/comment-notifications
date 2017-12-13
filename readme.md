@@ -4,22 +4,27 @@
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/silverstripe/comment-notifications/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/silverstripe/comment-notifications/?branch=master)
 [![codecov.io](https://codecov.io/github/silverstripe/comment-notifications/coverage.svg?branch=master)](https://codecov.io/github/silverstripe/comment-notifications?branch=master)
 
-Provides simple comment notifications.
+Provides simple email notifications for when new visitor comments are posted.
 
 ## Installation
 
+Install using Composer:
+
 ```
-composer require silverstripe/comment-notifications
+composer require silverstripe/comment-notifications ^2.0
 ```
+
+**Note:** This branch is SilverStripe 4 compatible. For a SilverStripe 3 version please see the [1.x release line](https://github.com/silverstripe/comment-notifications/tree/1.0).
+
+
+## Configuration
 
 To configure the default email address to receive notifications, place this in your `mysite/_config.yml`
 
-```
+```yaml
 SilverStripe\Control\Email\Email:
   admin_email: 'will@fullscreen.io'
 ```
-
-## Configuration
 
 Check out the [CommentNotifiable](src/Extensions/CommentNotifiable.php) class for the list of options you can override
 in your project.
@@ -31,7 +36,7 @@ To define who receives the comment notification define a `updateNotificationReci
 
 **mysite/code/CommentNotificationExtension.php**
 
-```
+```php
 <?php
 
 class CommentNotificationExtension extends DataExtension
@@ -62,7 +67,7 @@ class CommentNotificationExtension extends DataExtension
 Apply the `CommentNotificationExtension` to any classes which have commenting enabled (e.g SiteTree)
 
 **mysite/_config/extensions.yml**
-```
+```yaml
 SilverStripe\CMS\Model\SiteTree:
   extensions:
     - CommentNotificationExtension
