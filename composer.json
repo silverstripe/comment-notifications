@@ -1,7 +1,7 @@
 {
 	"name": "silverstripe/comment-notifications",
 	"description": "Provides email notifications for visitor comments",
-	"type": "silverstripe-module",
+	"type": "silverstripe-vendormodule",
 	"license": "BSD-3-Clause",
 	"authors": [{
 		"name": "Damian Mooyman",
@@ -17,7 +17,7 @@
     "autoload": {
         "psr-4": {
             "SilverStripe\\CommentNotifications\\": "src/",
-            "SilverStripe\\CommentNotifications\\Tests\\": "tests/php/"
+            "SilverStripe\\CommentNotifications\\Tests\\": "tests/"
         }
     },
 	"extra": {
