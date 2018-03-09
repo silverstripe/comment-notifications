@@ -24,7 +24,7 @@ class CommentNotifier extends Extension
     {
         $parent = $comment->Parent();
 
-        if (!$parent) {
+        if (!$parent || !$parent->hasMethod('notificationRecipients')) {
             return;
         }
 
