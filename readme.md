@@ -39,26 +39,37 @@ To define who receives the comment notification define a `updateNotificationReci
 ```php
 <?php
 
+use SilverStripe\CMS\Model\SiteTree;
+use SilverStripe\Comments\Model\Comment;
+use SilverStripe\ORM\ArrayList;
+use SilverStripe\ORM\DataExtension;
+use SilverStripe\Security\Group;
+
 class CommentNotificationExtension extends DataExtension
 {
     /**
      * @param array $existing
-     * @param SilverStripe\Comments\Model\Comment $comment
+     * @param Comment $comment
      */
     public function updateNotificationRecipients(&$existing, $comment)
     {
         // send notification of the comment to all administrators in the CMS
         $admin = Group::get()->filter('Code', 'admin');
 
-        foreach ($admin->Members() as $member) {
-            $existing[] = $member->Email;
+        foreach ($admin as $group) {
+            foreach ($group->Members() as $member) {
+                $existing[] = $member->Email;
+            }
         }
 
-        // or, send notification to the page author
+        // or, notify the user who originally created the page
         $page = $comment->Parent();
-
-        if ($page) {
-            $existing[] = $page->Author()->Email;
+        if ($page instanceof SiteTree) {
+            /** @var ArrayList $pageVersion */
+            $pageVersion = $page->allVersions('', '', 1); // get the original version
+            if ($pageVersion && $pageVersion->count()) {
+                $existing[] = $pageVersion->first()->Author()->Email;
+            }
         }
     }
 }
