@@ -1,0 +1,10 @@
+eo:
+  SilverStripe\CommentNotifications\CommentEmail:
+    APPRPOVE: 'Aprobi:'
+    DELETE: 'Forigi:'
+    DETECTED_AS_SPAM: 'Ĉi tiu komento aŭtomate registriĝis kiel trudmesaĝo.'
+    MARK_AS_NOT_SPAM: 'Marki kiel nespamon:'
+    MARK_AS_SPAM: 'Marki kiel spamon:'
+    MODERATE_THIS_COMMENT: 'Vi povas vidigi aŭ administri ĉi tiun komenton ĉe'
+    NEW_COMMENT_TEXT: 'Troviĝas nova komento ĉe'
+    PLEASE_REVIEW_FOR_APPROVAL: 'Bonvolu kontroli la komenton por aprovi'

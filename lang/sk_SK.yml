@@ -1,0 +1,7 @@
+sk_SK:
+  SilverStripe\CommentNotifications\CommentEmail:
+    APPRPOVE: 'Schváliť:'
+    DELETE: 'Odstrániť:'
+    DETECTED_AS_SPAM: 'Komentár bol automaticky vyhodnotený ako nevyžiadaný'
+    MARK_AS_NOT_SPAM: 'Označiť ako nie nevyžiadaný:'
+    MARK_AS_SPAM: 'Označiť ako nevyžiadaný:'

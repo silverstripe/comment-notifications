@@ -1,0 +1,10 @@
+id_ID:
+  SilverStripe\CommentNotifications\CommentEmail:
+    APPRPOVE: Terima
+    DELETE: Hapus
+    DETECTED_AS_SPAM: 'Komentar ini dideteksi sebagai spam secara otomatis'
+    MARK_AS_NOT_SPAM: 'Tandai sebagai bukan spam'
+    MARK_AS_SPAM: 'Tandai sebagai spam'
+    MODERATE_THIS_COMMENT: 'Anda dapat melihat atau memoderatori komentar ini di'
+    NEW_COMMENT_TEXT: 'Terdapat komentar yang baru'
+    PLEASE_REVIEW_FOR_APPROVAL: 'Harap meninjau komentar untuk persetujuan'

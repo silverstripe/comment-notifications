@@ -1,0 +1,6 @@
+de:
+  SilverStripe\CommentNotifications\CommentEmail:
+    APPRPOVE: 'Akzeptieren:'
+    DELETE: 'Löschen:'
+    MARK_AS_NOT_SPAM: 'Nicht als Spam markieren:'
+    MARK_AS_SPAM: 'Als Spam markieren:'
