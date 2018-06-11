@@ -20,11 +20,7 @@
             "SilverStripe\\CommentNotifications\\Tests\\": "tests/"
         }
     },
-	"extra": {
-		"branch-alias": {
-			"dev-master": "2.0.x-dev"
-		}
-	},
+	"extra": [],
     "prefer-stable": true,
     "minimum-stability": "dev"
 }
