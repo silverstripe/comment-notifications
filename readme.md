@@ -3,6 +3,7 @@
 [![Build Status](https://travis-ci.org/silverstripe/comment-notifications.svg?branch=master)](https://travis-ci.org/silverstripe/comment-notifications)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/silverstripe/comment-notifications/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/silverstripe/comment-notifications/?branch=master)
 [![codecov.io](https://codecov.io/github/silverstripe/comment-notifications/coverage.svg?branch=master)](https://codecov.io/github/silverstripe/comment-notifications?branch=master)
+[![SilverStripe supported module](https://img.shields.io/badge/silverstripe-supported-0071C4.svg)](https://www.silverstripe.org/software/addons/silverstripe-commercially-supported-module-list/)
 
 Provides simple email notifications for when new visitor comments are posted.
 
