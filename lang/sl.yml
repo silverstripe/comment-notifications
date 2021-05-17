@@ -1,0 +1,10 @@
+sl:
+  SilverStripe\CommentNotifications\CommentEmail:
+    APPRPOVE: 'Potrdi:'
+    DELETE: 'Izbriši:'
+    DETECTED_AS_SPAM: 'Komentar je ocenjen kot nesprejemljiv'
+    MARK_AS_NOT_SPAM: 'Označi kot sprejemljivo:'
+    MARK_AS_SPAM: 'Označi kot nesprejemljivo:'
+    MODERATE_THIS_COMMENT: 'Komentar si lahko ogledate ali uredite na '
+    NEW_COMMENT_TEXT: 'Nov komentar na'
+    PLEASE_REVIEW_FOR_APPROVAL: 'Ocenite, ali je komentar primeren za objavo'

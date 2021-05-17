@@ -1,0 +1,10 @@
+fi_FI:
+  SilverStripe\CommentNotifications\CommentEmail:
+    APPRPOVE: 'Hyväksy:'
+    DELETE: 'Poista:'
+    DETECTED_AS_SPAM: 'Tämä kommentti merkittiin roskapostiksi'
+    MARK_AS_NOT_SPAM: 'Älä merkitse roskapostiksi:'
+    MARK_AS_SPAM: 'Merkitse roskapostiksi:'
+    MODERATE_THIS_COMMENT: 'Voit katsoa tai moderoida tätä kommenttia »'
+    NEW_COMMENT_TEXT: 'Uusi kommentti »'
+    PLEASE_REVIEW_FOR_APPROVAL: 'Tarkasta kommentit ja hyväksy'
