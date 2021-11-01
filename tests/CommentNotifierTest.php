@@ -24,7 +24,7 @@ class CommentNotifierTest extends SapphireTest
         CommentNotifierTestController::class
     ];
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -33,7 +33,7 @@ class CommentNotifierTest extends SapphireTest
         $_SERVER['HTTP_HOST'] = 'www.mysite.com';
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         $_SERVER['HTTP_HOST'] = $this->oldhost;
 
@@ -56,9 +56,9 @@ class CommentNotifierTest extends SapphireTest
 
         $email = $this->findEmail('andrew@address.com', 'noreply@mysite.com', 'A new comment has been posted');
 
-        $this->assertContains('<li>Bob Bobberson</li>', $email['Content']);
-        $this->assertContains('<li>bob@address.com</li>', $email['Content']);
-        $this->assertContains('<blockquote>Hey what a lovely comment</blockquote>', $email['Content']);
+        $this->assertStringContainsString('<li>Bob Bobberson</li>', $email['Content']);
+        $this->assertStringContainsString('<li>bob@address.com</li>', $email['Content']);
+        $this->assertStringContainsString('<blockquote>Hey what a lovely comment</blockquote>', $email['Content']);
 
         $this->clearEmails();
 
@@ -67,9 +67,12 @@ class CommentNotifierTest extends SapphireTest
         $this->assertEmailSent('andrew@address.com', 'noreply@mysite.com', 'A new comment has been posted');
 
         $email = $this->findEmail('andrew@address.com', 'noreply@mysite.com', 'A new comment has been posted');
-        $this->assertContains('<li>Secret</li>', $email['Content']);
-        $this->assertContains('<li>secret@notallowed.com</li>', $email['Content']);
-        $this->assertContains('<blockquote>I don&#039;t want to disclose my details</blockquote>', $email['Content']);
+        $this->assertStringContainsString('<li>Secret</li>', $email['Content']);
+        $this->assertStringContainsString('<li>secret@notallowed.com</li>', $email['Content']);
+        $this->assertStringContainsString(
+            '<blockquote>I don&#039;t want to disclose my details</blockquote>',
+            $email['Content']
+        );
 
         $this->clearEmails();
 
@@ -79,9 +82,9 @@ class CommentNotifierTest extends SapphireTest
 
         $email = $this->findEmail('andrew@address.com', 'noreply@mysite.com', 'A new comment has been posted');
 
-        $this->assertContains('<li>Anonymous</li>', $email['Content']);
-        $this->assertContains('<li>notlogged@in.com</li>', $email['Content']);
-        $this->assertContains('<blockquote>I didn&#039;t log in</blockquote>', $email['Content']);
+        $this->assertStringContainsString('<li>Anonymous</li>', $email['Content']);
+        $this->assertStringContainsString('<li>notlogged@in.com</li>', $email['Content']);
+        $this->assertStringContainsString('<blockquote>I didn&#039;t log in</blockquote>', $email['Content']);
 
         $this->clearEmails();
 
