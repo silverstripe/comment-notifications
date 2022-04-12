@@ -85,7 +85,7 @@ class CommentNotifiable extends DataExtension
         $host = isset($_SERVER['HTTP_HOST'])
             ? preg_replace('/^www\./i', '', $_SERVER['HTTP_HOST'])
             : 'localhost';
-        $sender = preg_replace('/{host}/', $host, $sender);
+        $sender = preg_replace('/{host}/', $host ?? '', $sender ?? '');
 
         $this->owner->invokeWithExtensions('updateNotificationSender', $sender, $comment, $recipient);
 
