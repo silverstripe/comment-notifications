@@ -1,9 +1,7 @@
 # Comment Notifications
 
 [![CI](https://github.com/silverstripe/comment-notifications/actions/workflows/ci.yml/badge.svg)](https://github.com/silverstripe/comment-notifications/actions/workflows/ci.yml)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/silverstripe/comment-notifications/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/silverstripe/comment-notifications/?branch=master)
-[![codecov.io](https://codecov.io/github/silverstripe/comment-notifications/coverage.svg?branch=master)](https://codecov.io/github/silverstripe/comment-notifications?branch=master)
-[![SilverStripe supported module](https://img.shields.io/badge/silverstripe-supported-0071C4.svg)](https://www.silverstripe.org/software/addons/silverstripe-commercially-supported-module-list/)
+[![Silverstripe supported module](https://img.shields.io/badge/silverstripe-supported-0071C4.svg)](https://www.silverstripe.org/software/addons/silverstripe-commercially-supported-module-list/)
 
 Provides simple email notifications for when new visitor comments are posted.
 
@@ -15,8 +13,7 @@ Install using Composer:
 composer require silverstripe/comment-notifications ^2.0
 ```
 
-**Note:** This branch is SilverStripe 4 compatible. For a SilverStripe 3 version please see the [1.x release line](https://github.com/silverstripe/comment-notifications/tree/1.0).
-
+**Note:** This branch is Silverstripe 4 compatible. For a Silverstripe 3 version please see the [1.x release line](https://github.com/silverstripe/comment-notifications/tree/1.0).
 
 ## Configuration
 
