@@ -2,6 +2,7 @@
 
 namespace SilverStripe\CommentNotifications\Tests;
 
+use SilverStripe\CommentNotifications\Extensions\CommentNotifier;
 use SilverStripe\Dev\SapphireTest;
 use SilverStripe\Control\Email\Email;
 use SilverStripe\Core\Config\Config;
@@ -112,5 +113,33 @@ class CommentNotifierTest extends SapphireTest
 
         // test that after posting a comment the notifications are sent.
         $this->assertEmailSent('andrew@address.com', 'noreply@mysite.com', 'A new comment has been posted');
+    }
+
+    /**
+     * @dataProvider provideGetToAddress
+     */
+    public function testGetToAddress($recipient, string $expected): void
+    {
+        // need to create Member in unit-test rather than dataProvider so that config manifests are available
+        if ($recipient === 'MEMBER') {
+            $recipient = new Member();
+            $recipient->Email = 'member@example.com';
+        }
+        $method = new \ReflectionMethod(CommentNotifier::class, 'getToAddress');
+        $method->setAccessible(true);
+        $notifier = new CommentNotifier();
+        $actual = $method->invoke($notifier, $recipient);
+        $this->assertSame($expected, $actual);
+    }
+
+    public function provideGetToAddress(): array
+    {
+        return [
+            ['MEMBER', 'member@example.com'],
+            ['string@example.com', 'string@example.com'],
+            [['arraykey@example.com' => 'Name'], 'arraykey@example.com'],
+            // not testing invalid email addresses as they'll fail validation in a third party library
+            // called after calling Email::is_valid_address($to) in CommentNotifier::notifyCommentRecipient()
+        ];
     }
 }

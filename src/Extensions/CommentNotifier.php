@@ -49,10 +49,9 @@ class CommentNotifier extends Extension
         $sender = $parent->notificationSender($comment, $recipient);
         $template = $parent->notificationTemplate($comment, $recipient);
 
-        // Validate email
-        // Important in case of the owner being a default-admin or a username with no contact email
-        $to = ($recipient instanceof Member) ? $recipient->Email : $recipient;
+        $to = $this->getToAddress($recipient);
 
+        // Validate email
         if (!Email::is_valid_address($to)) {
             return;
         }
@@ -89,5 +88,23 @@ class CommentNotifier extends Extension
         $this->owner->invokeWithExtensions('updateCommentNotification', $email, $comment, $recipient);
 
         return $email->send();
+    }
+
+    private function getToAddress($recipient)
+    {
+        // Important in case of the owner being a default-admin or a username with no contact email
+        $to = ($recipient instanceof Member) ? $recipient->Email : $recipient;
+
+        // handle admin_email config where the recipient 'name' is also defined
+        // https://docs.silverstripe.org/en/4/developer_guides/email/#administrator-emails
+        //
+        // SilverStripe\Control\Email\Email:
+        //   admin_email:
+        //     admin-email@bugfix.test: 'Admin-email'
+        //
+        if (is_array($to) && strpos(array_keys($to)[0], '@') !== false) {
+            $to = array_keys($to)[0];
+        }
+        return $to;
     }
 }
