@@ -48,12 +48,13 @@ class CommentNotifier extends Extension
         $subject = $parent->notificationSubject($comment, $recipient);
         $sender = $parent->notificationSender($comment, $recipient);
         $template = $parent->notificationTemplate($comment, $recipient);
+        $to = ($recipient instanceof Member) ? $recipient->Email : $recipient;
 
         // Validate email
         // Important in case of the owner being a default-admin or a username with no contact email
-        $to = ($recipient instanceof Member) ? $recipient->Email : $recipient;
-
-        if (!Email::is_valid_address($to)) {
+        // Assume arrays are in email => name format
+        $validateTo = is_array($to) ? $validate = array_keys($to)[0] : $to;
+        if (!Email::is_valid_address($validateTo)) {
             return;
         }
 
