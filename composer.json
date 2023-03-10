@@ -11,7 +11,7 @@
     ],
     "require": {
         "php": "^7.4 || ^8.0",
-        "silverstripe/comments": "3.10.0-beta1"
+        "silverstripe/comments": "3.10.x-dev"
     },
     "require-dev": {
         "phpunit/phpunit": "^9.5",
