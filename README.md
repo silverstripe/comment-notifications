@@ -7,13 +7,9 @@ Provides simple email notifications for when new visitor comments are posted.
 
 ## Installation
 
-Install using Composer:
-
+```sh
+composer require silverstripe/comment-notifications
 ```
-composer require silverstripe/comment-notifications ^2.0
-```
-
-**Note:** This branch is Silverstripe 4 compatible. For a Silverstripe 3 version please see the [1.x release line](https://github.com/silverstripe/comment-notifications/tree/1.0).
 
 ## Configuration
 
