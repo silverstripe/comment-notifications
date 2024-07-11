@@ -1,0 +1,10 @@
+sk:
+  SilverStripe\CommentNotifications\CommentEmail:
+    APPRPOVE: 'Schváliť:'
+    DELETE: 'Odstrániť:'
+    DETECTED_AS_SPAM: 'Komentár bol automaticky vyhodnotený ako nevyžiadaný'
+    MARK_AS_NOT_SPAM: 'Označiť ako nie nevyžiadaný:'
+    MARK_AS_SPAM: 'Označiť ako nevyžiadaný:'
+    MODERATE_THIS_COMMENT: 'Tento komentár si môžete pozrieť alebo moderovať na'
+    NEW_COMMENT_TEXT: 'K dispozícii je nový komentár na'
+    PLEASE_REVIEW_FOR_APPROVAL: 'Skontrolujte komentár na schválenie'
