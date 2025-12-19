@@ -3,12 +3,12 @@
 namespace SilverStripe\CommentNotifications\Extensions;
 
 use SilverStripe\Comments\Model\Comment;
-use SilverStripe\ORM\DataExtension;
+use SilverStripe\Core\Extension;
 use SilverStripe\Control\Email\Email;
 use SilverStripe\Security\Member;
 use Traversable;
 
-class CommentNotifiable extends DataExtension
+class CommentNotifiable extends Extension
 {
 
     /**
